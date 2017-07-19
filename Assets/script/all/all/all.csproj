@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{9A34D08A-AB19-45F8-8F18-F86B388A24B5}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>all</RootNamespace>
+    <AssemblyName>all</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="src\" />
+    <Folder Include="note\" />
+    <Folder Include="src\physics\" />
+    <Folder Include="src\movement\" />
+    <Folder Include="src\anemy\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\movement\movement.cs">
+      <Link>src\movement\movement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\physics\collitionDetecting.cs">
+      <Link>src\physics\collitionDetecting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\movement\randomMovement.cs">
+      <Link>src\movement\randomMovement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\anemy\generateEnemy.cs">
+      <Link>src\anemy\generateEnemy.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="UnityScript, Version=1.0.0.0, Culture=neutral" />
+    <Reference Include="UnityScript.Lang, Version=1.0.0.0, Culture=neutral" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\..\..\..\opt\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="note\colliderAndTrigger" />
+  </ItemGroup>
+</Project>
