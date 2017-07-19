@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{29E1FEC6-0BB6-1717-41C4-394F700D0309}</ProjectGuid>
+    <ProjectGuid>{35EAA887-47E8-15B0-8497-86980718E1CD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -55,7 +55,6 @@
      <Compile Include="Assets\script\movement\movement.cs" />
      <Compile Include="Assets\script\movement\randomMovement.cs" />
      <Compile Include="Assets\script\otherControl\exit.cs" />
-     <Compile Include="Assets\script\physics\collitionDetecting.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/opt/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
