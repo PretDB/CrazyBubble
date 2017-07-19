@@ -1,7 +1,0 @@
-﻿for collider:
-master: Mesh Renderer
-		Rigidbody
-		Box Collider
-slave:	Mesh Renderer
-		Rigidbody
-		Box Collider: is trigger
