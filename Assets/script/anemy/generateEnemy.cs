@@ -33,7 +33,8 @@ public class generateEnemy : MonoBehaviour
 		{
 			GameObject enemyCopy = Instantiate<GameObject>(enemy);
 			enemyCopy.tag = "enemy";
-			
+			SpriteRenderer enemyCopyRenderer = enemyCopy.GetComponent<SpriteRenderer>();
+			enemyCopyRenderer.color = Random.ColorHSV();
 			enemyCopy.transform.position = new Vector3(Random.Range(-horRange / 2, horRange / 2), Random.Range(-vecRange / 2, vecRange / 2), 0);
 			enemyCopy.transform.localScale = new Vector3(scale, scale, 1);
 			this.updateCountDown = 1f / (this.frequencyOfGeneration * Time.deltaTime);

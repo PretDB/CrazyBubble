@@ -5,8 +5,8 @@ using UnityEngine;
 public class randomMovement : MonoBehaviour
 {
 	// Speed
-	public float basicSpeed = 5;
-	public float maxSpeed = 10;
+	public float basicSpeed;
+	public float maxSpeed;
 	public float rangeOfSpeedChange = 5;
 	public int updateFrequencyOfSpeed = 50;
 	public bool onMovement = false;
@@ -24,7 +24,7 @@ public class randomMovement : MonoBehaviour
 		// Speed Initializing
 		if (this.basicSpeed - 0 < 0.001 || this.basicSpeed + this.rangeOfSpeedChange / 2 > this.maxSpeed)
 		{
-			this.basicSpeed = Random.Range(-this.rangeOfSpeedChange / 2, this.rangeOfSpeedChange / 2);
+			this.basicSpeed = Random.value * this.maxSpeed;
 		}
 	}
 	
