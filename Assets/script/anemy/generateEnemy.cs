@@ -27,10 +27,13 @@ public class generateEnemy : MonoBehaviour
 
 	void FixedUpdate()
 	{
+		float scale = Random.value * this.maxValue;
+
 		if (this.updateCountDown - 0 < 0.001)
 		{
 			GameObject enemyCopy = Instantiate<GameObject>(enemy);
-			float scale = Random.value * this.maxValue;
+			enemyCopy.tag = "enemy";
+			
 			enemyCopy.transform.position = new Vector3(Random.Range(-horRange / 2, horRange / 2), Random.Range(-vecRange / 2, vecRange / 2), 0);
 			enemyCopy.transform.localScale = new Vector3(scale, scale, 1);
 			this.updateCountDown = 1f / (this.frequencyOfGeneration * Time.deltaTime);
