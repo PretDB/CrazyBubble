@@ -51,10 +51,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\script\anemy\generateEnemy.cs" />
-     <Compile Include="Assets\script\movement\movement.cs" />
-     <Compile Include="Assets\script\movement\randomMovement.cs" />
+     <Compile Include="Assets\script\control\controller.cs" />
+     <Compile Include="Assets\script\control\playerControlling.cs" />
+     <Compile Include="Assets\script\control\randomControlling.cs" />
      <Compile Include="Assets\script\otherControl\exit.cs" />
+     <Compile Include="Assets\script\physics\physic.cs" />
+     <Compile Include="Assets\script\seneyDepending\generateEnemy.cs" />
+     <Compile Include="Assets\script\seneyDepending\geometryLimit.cs" />
+     <Compile Include="Assets\script\view\view.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/opt/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

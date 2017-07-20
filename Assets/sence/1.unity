@@ -196,8 +196,13 @@ GameObject:
   m_Component:
   - component: {fileID: 431774326}
   - component: {fileID: 431774325}
-  - component: {fileID: 431774327}
   - component: {fileID: 431774328}
+  - component: {fileID: 431774331}
+  - component: {fileID: 431774330}
+  - component: {fileID: 431774329}
+  - component: {fileID: 431774327}
+  - component: {fileID: 431774332}
+  - component: {fileID: 431774333}
   m_Layer: 0
   m_Name: role
   m_TagString: Untagged
@@ -254,7 +259,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 431774324}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.1, z: -1}
+  m_LocalPosition: {x: -0, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -268,12 +273,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 431774324}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 468dae35a2911450c98ff35ae6437c21, type: 3}
+  m_Script: {fileID: 11500000, guid: 82896d122fcf5449c873f4d2ef05cec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
-  seeMe: {fileID: 722591391}
-  initCameraSize: 5
+  camera: {fileID: 722591391}
+  distanceRate: 0
 --- !u!58 &431774328
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -283,12 +287,87 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.25
+--- !u!114 &431774329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 431774324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e483fee20e8df4468b64edf966275cf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isComputer: 0
+--- !u!114 &431774330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 431774324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: add09d087e71944c19688ddab39f3941, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boundLeft: -10
+  boundRight: 10
+  boundTop: 10
+  boundBottom: -10
+--- !u!114 &431774331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 431774324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f41f82112fabb4894b19e9dabb5ffd3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  initMaxRadius: 10
+  currentSpeedVector: {x: 0, y: 0, z: 0}
+  geoLimit: {fileID: 431774330}
+--- !u!114 &431774332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 431774324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 569d0feadb5204e7aa794ee9273181c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isComputer: 0
+  physicModel: {fileID: 0}
+--- !u!50 &431774333
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 431774324}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &581869121
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,7 +449,7 @@ Transform:
   m_GameObject: {fileID: 581869121}
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
   m_LocalPosition: {x: 1.4293699, y: -0.85, z: 2.38}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -667,7 +746,6 @@ GameObject:
   - component: {fileID: 722591389}
   - component: {fileID: 722591388}
   - component: {fileID: 722591393}
-  - component: {fileID: 722591394}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -753,27 +831,11 @@ Skybox:
   m_GameObject: {fileID: 722591387}
   m_Enabled: 1
   m_CustomSkybox: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
---- !u!95 &722591394
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 722591387}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ba32068df89444be18b9094b2ab6913a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1402808543
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 1755128440579778, guid: 48293a05120fa40208e492c4de714589,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
@@ -781,7 +843,9 @@ GameObject:
   - component: {fileID: 1402808544}
   - component: {fileID: 1402808546}
   - component: {fileID: 1402808547}
+  - component: {fileID: 1402808549}
   - component: {fileID: 1402808548}
+  - component: {fileID: 1402808550}
   m_Layer: 0
   m_Name: enemyTemplete
   m_TagString: enemyTemplete
@@ -792,7 +856,8 @@ GameObject:
 --- !u!212 &1402808544
 SpriteRenderer:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 212070177952968314, guid: 48293a05120fa40208e492c4de714589,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1402808543}
   m_Enabled: 1
@@ -834,11 +899,12 @@ SpriteRenderer:
 --- !u!4 &1402808545
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 4123733718469178, guid: 48293a05120fa40208e492c4de714589,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1402808543}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 55.33, y: 18.46, z: -1.7589129}
+  m_LocalPosition: {x: 55.33, y: 18.46, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -848,7 +914,8 @@ Transform:
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 50819276272098760, guid: 48293a05120fa40208e492c4de714589,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1402808543}
   m_BodyType: 0
@@ -867,7 +934,8 @@ Rigidbody2D:
 --- !u!58 &1402808547
 CircleCollider2D:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 58040965754074236, guid: 48293a05120fa40208e492c4de714589,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1402808543}
   m_Enabled: 1
@@ -887,16 +955,41 @@ MonoBehaviour:
   m_GameObject: {fileID: 1402808543}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35fe149fe2f0b4981a0d91c663dd31cd, type: 3}
+  m_Script: {fileID: 11500000, guid: f647af80e5edd4a9abb022c205532f78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicSpeed: 2
-  maxSpeed: 20
-  rangeOfSpeedChange: 5
-  updateFrequencyOfSpeed: 0.5
-  onMovement: 1
-  horizontalRange: 500
-  VerticalRange: 500
+  isComputer: 1
+  speedUpdateFrequency: 0
+--- !u!114 &1402808549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1402808543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f41f82112fabb4894b19e9dabb5ffd3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  initMaxRadius: 10
+  currentSpeedVector: {x: 0, y: 0, z: 0}
+  geoLimit: {fileID: 1402808550}
+--- !u!114 &1402808550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1402808543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: add09d087e71944c19688ddab39f3941, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boundLeft: -10
+  boundRight: 10
+  boundTop: 10
+  boundBottom: -10
 --- !u!1 &1657767627
 GameObject:
   m_ObjectHideFlags: 0
