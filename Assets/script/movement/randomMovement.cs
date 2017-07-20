@@ -7,15 +7,15 @@ public class randomMovement : MonoBehaviour
 	// Speed
 	public float basicSpeed;
 	public float maxSpeed;
-	public float rangeOfSpeedChange = 5;
-	public int updateFrequencyOfSpeed = 50;
+	public float rangeOfSpeedChange = 5f;
+	public float updateFrequencyOfSpeed = 50f;
 	public bool onMovement = false;
 	// Location
-	public float horizontalRange = 10;
-	public float VerticalRange = 10;
+	public float horizontalRange = 10f;
+	public float VerticalRange = 10f;
 
 	private float currentSpeed;
-	private int updateSpeedCountDown;
+	private float updateSpeedCountDown;
 	private Vector2 direction;
 
 	// Use this for initialization
@@ -41,15 +41,15 @@ public class randomMovement : MonoBehaviour
 
 	void UpdateSpeed()
 	{
-		if (this.updateSpeedCountDown == 0)
+		if (this.updateSpeedCountDown - 0 < 0.1)
 		{
 			this.currentSpeed = this.basicSpeed + this.rangeOfSpeedChange * Random.Range(-1f, 1f);
 			this.direction = Random.insideUnitCircle;
-			this.updateSpeedCountDown = this.updateFrequencyOfSpeed;
+			this.updateSpeedCountDown = 1f / this.updateFrequencyOfSpeed / Time.deltaTime;
 		}
 		else
 		{
-			this.updateSpeedCountDown--;
+			this.updateSpeedCountDown -= 1;
 		}
 	}
 

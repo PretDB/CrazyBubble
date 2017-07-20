@@ -354,7 +354,7 @@ MonoBehaviour:
   horRange: 10
   vecRange: 10
   maxValue: 0.8
-  frequencyOfGeneration: 1
+  frequencyOfGeneration: 0.5
 --- !u!33 &581869124
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -893,8 +893,8 @@ MonoBehaviour:
   basicSpeed: 2
   maxSpeed: 20
   rangeOfSpeedChange: 5
-  updateFrequencyOfSpeed: 135
-  onMovement: 0
+  updateFrequencyOfSpeed: 0.5
+  onMovement: 1
   horizontalRange: 500
   VerticalRange: 500
 --- !u!1 &1657767627
