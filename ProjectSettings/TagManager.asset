@@ -6,6 +6,7 @@ TagManager:
   tags:
   - enemy
   - enemyTemplete
+  - role
   layers:
   - Default
   - TransparentFX

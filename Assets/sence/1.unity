@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 431774333}
   m_Layer: 0
   m_Name: role
-  m_TagString: Untagged
+  m_TagString: role
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -332,7 +332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  initMaxRadius: 10
+  initMaxWeight: 10
   currentSpeedVector: {x: 0, y: 0, z: 0}
   geoLimit: {fileID: 431774330}
 --- !u!114 &431774332
@@ -346,8 +346,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 569d0feadb5204e7aa794ee9273181c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isComputer: 0
-  physicModel: {fileID: 0}
 --- !u!50 &431774333
 Rigidbody2D:
   serializedVersion: 4
@@ -972,7 +970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  initMaxRadius: 10
+  initMaxWeight: 10
   currentSpeedVector: {x: 0, y: 0, z: 0}
   geoLimit: {fileID: 1402808550}
 --- !u!114 &1402808550
