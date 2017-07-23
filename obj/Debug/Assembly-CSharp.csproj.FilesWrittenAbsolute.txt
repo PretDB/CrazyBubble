@@ -21,3 +21,5 @@
 /doc/unityProj/CrazyBubble/Temp/bin/Debug/Unity.CecilTools.dll
 /doc/unityProj/CrazyBubble/Temp/bin/Debug/Mono.Cecil.Pdb.dll
 /doc/unityProj/CrazyBubble/Temp/bin/Debug/Mono.Cecil.Mdb.dll
+/doc/unityProj/CrazyBubble/Temp/bin/Debug/Assembly-CSharp-firstpass.dll
+/doc/unityProj/CrazyBubble/Temp/bin/Debug/Assembly-CSharp-firstpass.pdb

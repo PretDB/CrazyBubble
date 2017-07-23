@@ -3,18 +3,25 @@ using UnityEngine;
 using System.Security.Cryptography;
 
 //using UnityEditor;
+using System.Threading;
 
 namespace AssemblyCSharp
 {
-    public abstract class controller : MonoBehaviour
+    public class controller : MonoBehaviour
     {
-        public bool isComputer;
 
         protected physic physicModel;
+        protected GameObject me;
 
-        protected abstract void Init();
+        public virtual void Init(GameObject target)
+        {
+            this.me = target;
+            this.physicModel = this.me.GetComponent<physic>();
+        }
 
-        protected abstract void UpdateCurrentSpeedVector();
+        public virtual void UpdateControllingData()
+        {
+        }
     }
 }
 

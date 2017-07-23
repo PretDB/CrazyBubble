@@ -2,33 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 using AssemblyCSharp;
+
 using UnityEngine.Networking;
+using UnityStandardAssets.CrossPlatformInput;
+using System.Runtime.Remoting.Contexts;
+using System.Runtime.InteropServices;
+
+using System;
+
+
 
 public class playerControlling : controller
 {
 
-    // Use this for initialization
-    void Start()
-    {
-        this.Init();
-    }
-	
-    // Update is called once per frame
-    void Update()
-    {
-        this.UpdateCurrentSpeedVector();
-    }
+    private string horName;
+    private string verName;
+    private myJoy myStick;
 
-    protected override void UpdateCurrentSpeedVector()
+    public override void UpdateControllingData()
     {
         float hor = Input.GetAxis("Horizontal");
         float ver = Input.GetAxis("Vertical");
-        Vector3 newv = new Vector3(hor, ver, 0);
+        float horJoy = myStick.horizontalValue;//CrossPlatformInputManager.GetAxis(this.horName);
+        float verJoy = myStick.verticalValue;//CrossPlatformInputManager.GetAxis(this.verName);
+        Vector3 newv = new Vector3(horJoy, verJoy, 0) + new Vector3(hor, ver, 0);
         this.physicModel.UpdateCurrentSpeedVector(newv);
+
     }
 
-    protected override void Init()
+    public override void Init(GameObject target)
     {
-        this.physicModel = this.GetComponent<physic>();
+        base.Init(target);
+        this.myStick = GameObject.FindWithTag("stick").GetComponent<myJoy>();
     }
 }

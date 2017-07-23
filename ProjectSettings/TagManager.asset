@@ -5,8 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - enemy
-  - enemyTemplete
   - role
+  - map
+  - god
+  - stick
+  - fire
+  - splite
   layers:
   - Default
   - TransparentFX

@@ -5,6 +5,8 @@ using UnityEngine.EventSystems;
 using System;
 
 //using UnityEditor.SceneManagement;
+//using UnityEngine.Experimental.UIElements.StyleEnums;
+//using NUnit.Framework.Constraints;
 
 public class physic : MonoBehaviour
 {
@@ -25,7 +27,7 @@ public class physic : MonoBehaviour
     public float speed = 5;
     public float initMaxWeight = 10;
     public Vector3 currentSpeedVector;
-    public geometryLimit geoLimit;
+    public geographicalLimit geoLimit;
 
     private float area;
     private float r;
@@ -38,27 +40,32 @@ public class physic : MonoBehaviour
             this.area = UnityEngine.Random.value * this.initMaxWeight;
         }
         this.currentSpeedVector = Vector3.zero;
-        this.geoLimit = this.GetComponent<geometryLimit>();
+        this.geoLimit = GameObject.FindWithTag("map").GetComponent<geographicalLimit>();
+        this.weight = Mathf.Pow(gameObject.transform.localScale.x, 2);
     }
 	
     // Update is called once per frame
     void Update()
     {
+        this.UpdateSpeed();
         this.Move();
     }
 
-    void OnCollisionEnter2D(Collision2D colli)
+    void OnTriggerEnter2D(Collider2D colli)
     {
-        this.OnCrash(colli);
-    }
-
-    void OnCrash(Collision2D colli)
-    {
-        if (this.weight - colli.collider.GetComponent<physic>().weight > 0.1f)
+        if (this.weight - colli.GetComponent<physic>().weight > 0.1f)
         {
-            this.UpdateWeightFrom(colli.collider);
-            Destroy(colli.collider);
-            Debug.Log(colli.collider.name + " should be destried");
+            if (colli.tag == "role")
+            {
+                Application.Quit();
+                return;
+            }
+            if (colli.tag == "enemy")
+            {
+                this.UpdateWeightFrom(colli);
+                virtualEnemyConfig god = GameObject.FindWithTag("god").GetComponent<virtualEnemyConfig>();
+                god.KillGameObject(colli.gameObject);
+            }
         }
     }
 
@@ -67,12 +74,12 @@ public class physic : MonoBehaviour
         // weight = r * r
         this.weight += food.GetComponent<physic>().weight * UnityEngine.Random.value;
         this.UpdateSize(this.r);
-
     }
+
 
     void UpdateSize(float radius)
     {
-        this.transform.localScale = new Vector3(radius, radius, 1f);
+        gameObject.transform.localScale = new Vector3(radius, radius, 1f);
     }
 
     void UpdateSpeed()
@@ -88,7 +95,8 @@ public class physic : MonoBehaviour
 
     public void Move()
     {
-        //this.currentSpeedVector = this.geoLimit.CutSpeedVector(this.currentSpeedVector);
-        this.transform.position += this.currentSpeedVector * Time.deltaTime;
+        Vector3 newD = this.currentSpeedVector * Time.deltaTime;
+        Vector3 newLoc = new Vector3(Mathf.Clamp(gameObject.transform.position.x + newD.x, this.geoLimit.activeArea.xMin, this.geoLimit.activeArea.xMax), Mathf.Clamp(gameObject.transform.position.y + newD.y, this.geoLimit.activeArea.yMin, this.geoLimit.activeArea.yMax), newD.z);
+        gameObject.transform.position = newLoc;
     }
 }

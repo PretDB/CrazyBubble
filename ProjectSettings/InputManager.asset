@@ -35,7 +35,7 @@ InputManager:
     snap: 1
     invert: 0
     type: 0
-    axis: 0
+    axis: 1
     joyNum: 0
   - serializedVersion: 3
     m_Name: Fire1
@@ -150,7 +150,9 @@ InputManager:
     axis: 2
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Horizontal
+    m_Name: "Horizontal 1\n To change the input settings use: Edit -> Project Settings
+      -> Input\nplayerControlling.UpdateControllingData () (at Assets/script/control/playerControlling.cs:21)\nrole.Update
+      () (at Assets/script/roleRelated/role.cs:21)\nuser.Update () (at Assets/script/roleRelated/user.cs:19)\n"
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -166,7 +168,7 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Vertical
+    m_Name: Vertical 1
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -177,9 +179,9 @@ InputManager:
     dead: 0.19
     sensitivity: 1
     snap: 0
-    invert: 1
+    invert: 0
     type: 2
-    axis: 1
+    axis: 0
     joyNum: 0
   - serializedVersion: 3
     m_Name: Fire1
