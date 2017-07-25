@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.UIElements.StyleEnums;
+using UnityEngine.Networking;
 
-public class geographicalLimit : MonoBehaviour
+public class geographicalLimit : NetworkBehaviour
 {
     public Rect activeArea;
     // Use this for initialization

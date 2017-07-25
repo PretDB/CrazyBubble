@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Reflection;
 
 public class myJoy : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
@@ -72,6 +73,7 @@ public class myJoy : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDra
             delta = Mathf.Clamp(delta, -MovementRange, MovementRange);
             newPos.y = delta;
         }
+        newPos = newPos.normalized * 50;
         gameObject.transform.position = new Vector3(m_StartPos.x + newPos.x, m_StartPos.y + newPos.y, m_StartPos.z + newPos.z);
         UpdateVirtualAxes(transform.position);
     }

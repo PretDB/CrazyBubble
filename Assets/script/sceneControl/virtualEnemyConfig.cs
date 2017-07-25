@@ -4,11 +4,13 @@ using UnityEngine;
 
 //using UnityEditorInternal;
 //using UnityEditor;
+using UnityEngine.Networking;
+using UnityEngine.Networking.Types;
 
 /// <summary>
 /// Virtual ememy config. This will keep virtual enemy at a constant number.
 /// </summary>
-public class virtualEnemyConfig : MonoBehaviour
+public class virtualEnemyConfig : NetworkBehaviour
 {
 
     public bool allowVirtualEnemy = true;
@@ -42,6 +44,8 @@ public class virtualEnemyConfig : MonoBehaviour
             GameObject newEnemy = Instantiate(this.enemy);
             this.virtualEnemyList.Add(newEnemy);
             newEnemy.AddComponent<virtualEnemy>();
+            newEnemy.GetComponent<user>().enabled = false;
+            newEnemy.GetComponent<NetworkIdentity>().serverOnly = true;
             float scale = UnityEngine.Random.value;
             newEnemy.transform.localScale = new Vector3(scale, scale, 1);
             newEnemy.transform.position = newLoc;

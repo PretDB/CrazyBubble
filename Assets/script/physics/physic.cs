@@ -7,10 +7,10 @@ using System;
 //using UnityEditor.SceneManagement;
 //using UnityEngine.Experimental.UIElements.StyleEnums;
 //using NUnit.Framework.Constraints;
+using UnityEngine.Networking;
 
-public class physic : MonoBehaviour
+public class physic : NetworkBehaviour
 {
-
     public float weight
     {
         get
@@ -53,7 +53,7 @@ public class physic : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D colli)
     {
-        if (this.weight - colli.GetComponent<physic>().weight > 0.1f)
+        if (this.weight * 0.9f > colli.GetComponent<physic>().weight)
         {
             if (colli.tag == "role")
             {
@@ -71,11 +71,13 @@ public class physic : MonoBehaviour
 
     void UpdateWeightFrom(Collider2D food)
     {
-        // weight = r * r
-        this.weight += food.GetComponent<physic>().weight * UnityEngine.Random.value;
-        this.UpdateSize(this.r);
+        if (this.weight < this.initMaxWeight)
+        {
+            // weight = r * r
+            this.weight += food.GetComponent<physic>().weight * UnityEngine.Random.value;
+            this.UpdateSize(this.r);
+        }
     }
-
 
     void UpdateSize(float radius)
     {

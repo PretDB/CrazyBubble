@@ -11,7 +11,13 @@ public class user : role
         this.ishostile = false;
         this.roleController = this.gameObject.AddComponent<playerControlling>();
         this.roleController.Init(gameObject);
+        if (isLocalPlayer)
+        {
+            GameObject.FindWithTag("MainCamera").GetComponent<view>().target = this.gameObject;
+        }
     }
+
+
 	
     // Update is called once per frame
     protected override void Update()

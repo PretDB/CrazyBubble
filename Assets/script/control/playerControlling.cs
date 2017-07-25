@@ -9,25 +9,26 @@ using System.Runtime.Remoting.Contexts;
 using System.Runtime.InteropServices;
 
 using System;
+using UnityEngine.Networking.Types;
 
 
 
 public class playerControlling : controller
 {
 
-    private string horName;
-    private string verName;
     private myJoy myStick;
 
     public override void UpdateControllingData()
     {
-        float hor = Input.GetAxis("Horizontal");
-        float ver = Input.GetAxis("Vertical");
-        float horJoy = myStick.horizontalValue;//CrossPlatformInputManager.GetAxis(this.horName);
-        float verJoy = myStick.verticalValue;//CrossPlatformInputManager.GetAxis(this.verName);
-        Vector3 newv = new Vector3(horJoy, verJoy, 0) + new Vector3(hor, ver, 0);
-        this.physicModel.UpdateCurrentSpeedVector(newv);
-
+        if (isLocalPlayer)
+        {
+            float hor = Input.GetAxis("Horizontal");
+            float ver = Input.GetAxis("Vertical");
+            float horJoy = myStick.horizontalValue;//CrossPlatformInputManager.GetAxis(this.horName);
+            float verJoy = myStick.verticalValue;//CrossPlatformInputManager.GetAxis(this.verName);
+            Vector3 newv = new Vector3(horJoy, verJoy, 0) + new Vector3(hor, ver, 0);
+            this.physicModel.UpdateCurrentSpeedVector(newv);
+        }
     }
 
     public override void Init(GameObject target)

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using AssemblyCSharp;
+using UnityEngine.Networking;
 
-public class role : MonoBehaviour
+public class role : NetworkBehaviour
 {
     public bool ishostile = false;
     protected controller roleController;
@@ -20,4 +21,5 @@ public class role : MonoBehaviour
     {
         this.roleController.UpdateControllingData();
     }
+
 }
