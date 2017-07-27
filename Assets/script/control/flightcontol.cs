@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Runtime.CompilerServices;
-using UnityEngine.Windows.Speech;
 using UnityEngine.Events;
 
 public class flightcontol : NetworkBehaviour

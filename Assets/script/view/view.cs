@@ -12,7 +12,7 @@ using UnityEngine.Networking;
 public class view : NetworkBehaviour
 {
 
-    public float distanceRate;
+    public float distanceRate = 0.3f;
     public GameObject target;
     public  Camera cam;
 
