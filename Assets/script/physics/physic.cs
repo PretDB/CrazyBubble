@@ -4,84 +4,78 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
 
-//using UnityEditor.SceneManagement;
-//using UnityEngine.Experimental.UIElements.StyleEnums;
-//using NUnit.Framework.Constraints;
 using UnityEngine.Networking;
 
 public class physic : NetworkBehaviour
 {
-    public float weight
-    {
-        get
-        {
-            return this.area;
-        }
-        set
-        {
-            this.area = value;
-            this.r = Mathf.Sqrt(value);
-        }
-    }
-
+    [SyncVar]
+    public float weight;
+    [SyncVar]
     public float speed = 5;
     public float initMaxWeight = 10;
     public Vector3 currentSpeedVector;
     public geographicalLimit geoLimit;
 
-    private float area;
-    private float r;
 
-    // Use this for initialization
+
     void Start()
     {
-        if (this.area - 0 < 0.1)
-        {
-            this.area = UnityEngine.Random.value * this.initMaxWeight;
-        }
         this.currentSpeedVector = Vector3.zero;
         this.geoLimit = GameObject.FindWithTag("map").GetComponent<geographicalLimit>();
-        this.weight = Mathf.Pow(gameObject.transform.localScale.x, 2);
+        this.transform.localScale = new Vector3(1, 1, 1);
+        this.CmdUpdateSize(this.weight);
     }
-	
-    // Update is called once per frame
+
     void Update()
     {
         this.UpdateSpeed();
         this.Move();
+        if (isServer)
+        {
+            this.RpcUpdateSize(this.weight);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D colli)
     {
-        if (this.weight * 0.9f > colli.GetComponent<physic>().weight)
+        if (colli.gameObject.GetComponent<player>().teamNumber != this.gameObject.GetComponent<player>().teamNumber)
         {
-            if (colli.tag == "role")
+            if (this.weight * 0.9f > colli.GetComponent<physic>().weight)
             {
-                Application.Quit();
-                return;
-            }
-            if (colli.tag == "enemy")
-            {
-                this.UpdateWeightFrom(colli);
-                virtualEnemyConfig god = GameObject.FindWithTag("god").GetComponent<virtualEnemyConfig>();
-                god.KillGameObject(colli.gameObject);
+                if (colli.gameObject.tag == "computer")
+                {
+                    this.UpdateWeightFrom(colli);
+                    virtualEnemyConfig backstab = GameObject.FindWithTag("computerGenerator").GetComponent<virtualEnemyConfig>();
+                    backstab.KillGameObject(colli.gameObject);
+                }
+                if (colli.gameObject.tag == "player")
+                {
+                    // destroy player
+                }
             }
         }
     }
+
 
     void UpdateWeightFrom(Collider2D food)
     {
         if (this.weight < this.initMaxWeight)
         {
             // weight = r * r
-            this.weight += food.GetComponent<physic>().weight * UnityEngine.Random.value;
-            this.UpdateSize(this.r);
+            this.weight += food.GetComponent<physic>().weight * UnityEngine.Random.Range(0.1f, 0.8f);
+            if (isLocalPlayer)
+            {
+                this.CmdUpdateSize(this.weight);
+            }
         }
     }
 
-    void UpdateSize(float radius)
+
+    [Command]
+    void CmdUpdateSize(float weight)
     {
-        gameObject.transform.localScale = new Vector3(radius, radius, 1f);
+        float r = Mathf.Sqrt(weight);
+        gameObject.transform.localScale = new Vector3(r, r, 1);
     }
 
     void UpdateSpeed()
@@ -100,5 +94,13 @@ public class physic : NetworkBehaviour
         Vector3 newD = this.currentSpeedVector * Time.deltaTime;
         Vector3 newLoc = new Vector3(Mathf.Clamp(gameObject.transform.position.x + newD.x, this.geoLimit.activeArea.xMin, this.geoLimit.activeArea.xMax), Mathf.Clamp(gameObject.transform.position.y + newD.y, this.geoLimit.activeArea.yMin, this.geoLimit.activeArea.yMax), newD.z);
         gameObject.transform.position = newLoc;
+    }
+
+    [ClientRpc]
+    void RpcUpdateSize(float weight)
+    {
+        float f = Mathf.Sqrt(this.weight);
+        this.gameObject.transform.localScale = new Vector3(f, f, 1);
+        Debug.Log("rpc calls");
     }
 }

@@ -4,13 +4,15 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - enemy
   - role
   - map
   - god
   - stick
   - fire
   - splite
+  - computer
+  - player
+  - computerGenerator
   layers:
   - Default
   - TransparentFX

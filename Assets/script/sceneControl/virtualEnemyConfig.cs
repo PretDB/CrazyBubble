@@ -7,6 +7,9 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Networking.Types;
 
+//using NUnit.Framework;
+using System;
+
 /// <summary>
 /// Virtual ememy config. This will keep virtual enemy at a constant number.
 /// </summary>
@@ -16,47 +19,69 @@ public class virtualEnemyConfig : NetworkBehaviour
     public bool allowVirtualEnemy = true;
     public int maxVirtualEnemy = 10;
     public Rect scope;
-    public GameObject enemy;
+    public GameObject computerPrefab;
 
-    private List<GameObject> virtualEnemyList;
+    private List<GameObject> computerList;
 
-    // Use this for initialization
+    void Awake()
+    {
+        this.computerList = new List<GameObject>();
+    }
+
     void Start()
     {
         this.scope = GameObject.FindWithTag("map").GetComponent<geographicalLimit>().activeArea;
-        this.virtualEnemyList = new List<GameObject>();
     }
-	
-    // Update is called once per frame
+
     void Update()
     {
-        if (this.allowVirtualEnemy)
-        {
-            this.GenerateVirtualEnemy();
-        }
+
     }
+
+    public override void OnStartServer()
+    {
+        if (this.allowVirtualEnemy)
+        { 
+            for (int a = 0; a < 10; a++)
+            {
+                this.GenerateVirtualEnemy();
+            }
+        }
+
+    }
+
 
     void GenerateVirtualEnemy()
     {
-        if (this.virtualEnemyList.Count < this.maxVirtualEnemy)
+        if (isServer)
         {
-            Vector3 newLoc = new Vector3(UnityEngine.Random.Range(this.scope.xMin, this.scope.xMax), UnityEngine.Random.Range(this.scope.yMin, this.scope.yMax), 0);
-            GameObject newEnemy = Instantiate(this.enemy);
-            this.virtualEnemyList.Add(newEnemy);
-            newEnemy.AddComponent<virtualEnemy>();
-            newEnemy.GetComponent<user>().enabled = false;
-            newEnemy.GetComponent<NetworkIdentity>().serverOnly = true;
-            float scale = UnityEngine.Random.value;
-            newEnemy.transform.localScale = new Vector3(scale, scale, 1);
-            newEnemy.transform.position = newLoc;
-            SpriteRenderer newEnemyRenderer = newEnemy.GetComponent<SpriteRenderer>();
-            newEnemyRenderer.color = UnityEngine.Random.ColorHSV();
-        } 
+            if (this.computerList.Count < this.maxVirtualEnemy)
+            {
+                Vector3 newLoc = new Vector3(UnityEngine.Random.Range(this.scope.xMin, this.scope.xMax), UnityEngine.Random.Range(this.scope.yMin, this.scope.yMax), 0);
+
+                GameObject newEnemy = Instantiate(this.computerPrefab);
+                this.computerList.Add(newEnemy);
+
+                newEnemy.transform.localScale = new Vector3(0.5f, 0.5f, 1);
+                newEnemy.transform.position = newLoc;
+                newEnemy.GetComponent<player>().isComputer = true;
+                newEnemy.GetComponent<player>().teamNumber = 1;
+                newEnemy.GetComponent<physic>().weight = 0.5f;
+
+
+                newEnemy.name = Convert.ToString(newEnemy.GetHashCode(), 16);
+                newEnemy.tag = "computer";
+                SpriteRenderer newEnemyRenderer = newEnemy.GetComponent<SpriteRenderer>();
+                newEnemyRenderer.color = UnityEngine.Random.ColorHSV();
+
+                NetworkServer.Spawn(newEnemy);
+            } 
+        }
     }
 
     public void KillGameObject(GameObject target)
     {
-        this.virtualEnemyList.Remove(target);
+        this.computerList.Remove(target);
         Destroy(target);
     }
 }
