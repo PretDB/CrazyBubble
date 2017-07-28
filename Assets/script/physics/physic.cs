@@ -22,7 +22,8 @@ public class physic : NetworkBehaviour
     {
         this.currentSpeedVector = Vector3.zero;
         this.geoLimit = GameObject.FindWithTag("map").GetComponent<geographicalLimit>();
-        this.transform.localScale = new Vector3(1, 1, 1);
+        float s = Mathf.Sqrt(this.weight);
+        this.transform.localScale = new Vector3(s, s, 1);
         this.CmdUpdateSize(this.weight);
     }
 
@@ -30,28 +31,28 @@ public class physic : NetworkBehaviour
     {
         this.UpdateSpeed();
         this.Move();
-        if (isServer)
-        {
-            this.RpcUpdateSize(this.weight);
-        }
     }
 
     void OnTriggerEnter2D(Collider2D colli)
     {
-        if (colli.gameObject.GetComponent<player>().teamNumber != this.gameObject.GetComponent<player>().teamNumber)
+        if (!this.gameObject.GetComponent<player>().isFreeMode)
         {
-            if (this.weight * 0.9f > colli.GetComponent<physic>().weight)
+            if (colli.gameObject.GetComponent<player>().teamNumber == this.gameObject.GetComponent<player>().teamNumber)
             {
-                if (colli.gameObject.tag == "computer")
-                {
-                    this.UpdateWeightFrom(colli);
-                    virtualEnemyConfig backstab = GameObject.FindWithTag("computerGenerator").GetComponent<virtualEnemyConfig>();
-                    backstab.KillGameObject(colli.gameObject);
-                }
-                if (colli.gameObject.tag == "player")
-                {
-                    // destroy player
-                }
+                return;
+            }
+        }
+        if (this.weight * 0.9f > colli.GetComponent<physic>().weight)
+        {
+            if (colli.gameObject.tag == "computer")
+            {
+                this.UpdateWeightFrom(colli);
+                virtualEnemyConfig backstab = GameObject.FindWithTag("computerGenerator").GetComponent<virtualEnemyConfig>();
+                backstab.KillGameObject(colli.gameObject);
+            }
+            if (colli.gameObject.tag == "player")
+            {
+                // destroy player or respawn
             }
         }
     }
@@ -66,6 +67,10 @@ public class physic : NetworkBehaviour
             if (isLocalPlayer)
             {
                 this.CmdUpdateSize(this.weight);
+            }
+            if (isServer)
+            {
+                this.RpcUpdateSize(this.weight);
             }
         }
     }
@@ -101,6 +106,5 @@ public class physic : NetworkBehaviour
     {
         float f = Mathf.Sqrt(this.weight);
         this.gameObject.transform.localScale = new Vector3(f, f, 1);
-        Debug.Log("rpc calls");
     }
 }

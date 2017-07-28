@@ -62,12 +62,11 @@ public class virtualEnemyConfig : NetworkBehaviour
                 GameObject newEnemy = Instantiate(this.computerPrefab);
                 this.computerList.Add(newEnemy);
 
-                newEnemy.transform.localScale = new Vector3(0.5f, 0.5f, 1);
                 newEnemy.transform.position = newLoc;
                 newEnemy.GetComponent<player>().isComputer = true;
                 newEnemy.GetComponent<player>().teamNumber = 1;
-                newEnemy.GetComponent<physic>().weight = 0.5f;
-
+                newEnemy.GetComponent<player>().isFreeMode = true;
+                newEnemy.GetComponent<physic>().weight = UnityEngine.Random.value * 0.7f;
 
                 newEnemy.name = Convert.ToString(newEnemy.GetHashCode(), 16);
                 newEnemy.tag = "computer";

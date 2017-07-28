@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class weightIndicator : MonoBehaviour
+public class weightIndicator : NetworkBehaviour
 {
 
     private GUIStyle healthStyle;
@@ -19,9 +20,9 @@ public class weightIndicator : MonoBehaviour
         InitStyles();
 
         Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
-        GUI.color = Color.green;
-        GUI.backgroundColor = Color.green;
-        GUI.TextField(new Rect(pos.x - 15, Screen.height - pos.y + 15, 35, 30), string.Format("{0:F2}", this.combat.weight));
+        //GUI.color = Color.green;
+        //GUI.backgroundColor = Color.green;
+        GUI.Box(new Rect(pos.x - 15, Screen.height - pos.y + 15, 35, 30), string.Format("{0:F2}", this.combat.weight), this.healthStyle);
     }
 
     void InitStyles()
@@ -29,7 +30,7 @@ public class weightIndicator : MonoBehaviour
         if (healthStyle == null)
         {
             healthStyle = new GUIStyle(GUI.skin.box);
-            healthStyle.normal.background = MakeTex(2, 2, new Color(0f, 1f, 0f, 1.0f));
+            healthStyle.normal.background = MakeTex(2, 2, new Color(0.2f, 0.4f, 0f, 0.5f));
         }
 
         if (backStyle == null)
