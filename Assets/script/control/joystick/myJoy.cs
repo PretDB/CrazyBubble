@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Reflection;
 
-public class myJoy : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
+public class myJoy : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler, IControllingEvnets
 {
     public enum AxisOption
     {
@@ -78,6 +78,7 @@ public class myJoy : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDra
         newPos = Vector3.ClampMagnitude(newPos, maxLength);
         gameObject.transform.position = new Vector3(m_StartPos.x + newPos.x, m_StartPos.y + newPos.y, m_StartPos.z + newPos.z);
         UpdateVirtualAxes(transform.position);
+        ExecuteEvents.Execute<IControllingEvnets>(this.gameObject, null, );
     }
 
 
