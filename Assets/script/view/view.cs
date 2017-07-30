@@ -30,10 +30,16 @@ public class view : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        this.UpdateLoc();
+    }
+
+
+    void UpdateLoc()
+    {
         if (target)
         {
             this.cam.orthographicSize = Mathf.Lerp(this.cam.orthographicSize, this.target.transform.localScale.x / this.distanceRate, Time.deltaTime * 5);
             this.cam.transform.position = Vector3.Lerp(this.cam.transform.position, new Vector3(this.target.transform.position.x, this.target.transform.position.y, this.cam.transform.position.z), Time.deltaTime * 15);
-        }
+        } 
     }
 }

@@ -24,6 +24,12 @@ public class computerControlling : controlling
 
     public override void UpdateControllingData()
     {
+        this.RandomMoving();
+    }
+
+    private void RandomMoving()
+    {
+
         if (this.speedUpdateCountDown - 0 < 0.1)
         {
             Vector3 randomSpeedVector = UnityEngine.Random.insideUnitSphere;
@@ -35,6 +41,6 @@ public class computerControlling : controlling
         else
         {
             this.speedUpdateCountDown -= 1f;
-        }
+        } 
     }
 }

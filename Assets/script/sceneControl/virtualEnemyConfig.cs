@@ -65,11 +65,11 @@ public class virtualEnemyConfig : NetworkBehaviour
                 newEnemy.transform.position = newLoc;
                 newEnemy.GetComponent<player>().isComputer = true;
                 newEnemy.GetComponent<player>().teamNumber = 1;
-                newEnemy.GetComponent<player>().isFreeMode = true;
+                newEnemy.GetComponent<player>().isFreemode = true;
                 newEnemy.GetComponent<physic>().weight = UnityEngine.Random.value * 0.7f;
 
-                newEnemy.name = Convert.ToString(newEnemy.GetHashCode(), 16);
                 newEnemy.tag = "computer";
+                newEnemy.name = newEnemy.GetInstanceID().ToString();
                 SpriteRenderer newEnemyRenderer = newEnemy.GetComponent<SpriteRenderer>();
                 newEnemyRenderer.color = UnityEngine.Random.ColorHSV();
 

@@ -60,22 +60,21 @@ public class myJoy : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDra
     {
         Vector3 newPos = Vector3.zero;
 
-        if (m_UseX)
-        {
-            int delta = (int)(data.position.x - m_StartPos.x);
-            delta = Mathf.Clamp(delta, -MovementRange, MovementRange);
-            newPos.x = delta;
-        }
+        int deltaX = (int)(data.position.x - m_StartPos.x);
+        deltaX = Mathf.Clamp(deltaX, -MovementRange, MovementRange);
+        newPos.x = deltaX;
 
-        if (m_UseY)
-        {
-            int delta = (int)(data.position.y - m_StartPos.y);
-            delta = Mathf.Clamp(delta, -MovementRange, MovementRange);
-            newPos.y = delta;
-        }
+        int deltaY = (int)(data.position.y - m_StartPos.y);
+        deltaY = Mathf.Clamp(deltaY, -MovementRange, MovementRange);
+        newPos.y = deltaY;
+
+
         RectTransform parentTransform = this.gameObject.GetComponentInParent<RectTransform>();
         float angle = Mathf.Atan(newPos.y / newPos.x);
-        float maxLength = Mathf.Sqrt(Mathf.Pow(parentTransform.rect.width, 2) + Mathf.Pow(parentTransform.rect.height, 2));
+        float maxX = parentTransform.rect.width;
+        float maxY = parentTransform.rect.height;
+
+        float maxLength = Mathf.Sqrt(Mathf.Pow(maxX * Mathf.Cos(angle), 2) + Mathf.Pow(maxY * Mathf.Sin(angle), 2));
         newPos = Vector3.ClampMagnitude(newPos, maxLength);
         gameObject.transform.position = new Vector3(m_StartPos.x + newPos.x, m_StartPos.y + newPos.y, m_StartPos.z + newPos.z);
         UpdateVirtualAxes(transform.position);

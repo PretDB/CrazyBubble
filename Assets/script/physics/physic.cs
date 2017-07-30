@@ -13,14 +13,23 @@ public class physic : NetworkBehaviour
     [SyncVar]
     public float speed = 5;
     public float initMaxWeight = 10;
-    public Vector3 currentSpeedVector;
+
+    public Vector3 currentSpeedVector
+    {
+        get
+        {
+            return this._currentSpeedVector;
+        }
+    }
+
     public geographicalLimit geoLimit;
 
 
+    private Vector3 _currentSpeedVector;
 
     void Start()
     {
-        this.currentSpeedVector = Vector3.zero;
+        this._currentSpeedVector = Vector3.zero;
         this.geoLimit = GameObject.FindWithTag("map").GetComponent<geographicalLimit>();
         float s = Mathf.Sqrt(this.weight);
         this.transform.localScale = new Vector3(s, s, 1);
@@ -35,7 +44,7 @@ public class physic : NetworkBehaviour
 
     void OnTriggerEnter2D(Collider2D colli)
     {
-        if (!this.gameObject.GetComponent<player>().isFreeMode)
+        if (!this.gameObject.GetComponent<player>().isFreemode)
         {
             if (colli.gameObject.GetComponent<player>().teamNumber == this.gameObject.GetComponent<player>().teamNumber)
             {
@@ -91,12 +100,12 @@ public class physic : NetworkBehaviour
 
     public void UpdateCurrentSpeedVector(Vector3 direction)
     {
-        this.currentSpeedVector = this.speed * direction.normalized;
+        this._currentSpeedVector = this.speed * direction.normalized;
     }
 
     public void Move()
     {
-        Vector3 newD = this.currentSpeedVector * Time.deltaTime;
+        Vector3 newD = this._currentSpeedVector * Time.deltaTime;
         Vector3 newLoc = new Vector3(Mathf.Clamp(gameObject.transform.position.x + newD.x, this.geoLimit.activeArea.xMin, this.geoLimit.activeArea.xMax), Mathf.Clamp(gameObject.transform.position.y + newD.y, this.geoLimit.activeArea.yMin, this.geoLimit.activeArea.yMax), newD.z);
         gameObject.transform.position = newLoc;
     }
@@ -107,4 +116,5 @@ public class physic : NetworkBehaviour
         float f = Mathf.Sqrt(this.weight);
         this.gameObject.transform.localScale = new Vector3(f, f, 1);
     }
+
 }

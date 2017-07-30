@@ -29,17 +29,24 @@ public class playerControlling : controlling
         this.stick = GameObject.FindGameObjectWithTag("stick").GetComponent<myJoy>();
     }
 
+    private void CheckMovementControl()
+    {
+        float hor = Input.GetAxis("Horizontal");
+        float ver = Input.GetAxis("Vertical");
+        float horJoy = stick.horizontalValue;
+        float verJoy = stick.verticalValue;
+        Vector3 newv = new Vector3(horJoy, verJoy, 0) + new Vector3(hor, ver, 0);
+        this.physicModel.UpdateCurrentSpeedVector(newv);
+    }
+
+
     public override void UpdateControllingData()
     {
         if (isLocalPlayer)
         {
-            float hor = Input.GetAxis("Horizontal");
-            float ver = Input.GetAxis("Vertical");
-            float horJoy = stick.horizontalValue;
-            float verJoy = stick.verticalValue;
-            Vector3 newv = new Vector3(horJoy, verJoy, 0) + new Vector3(hor, ver, 0);
-            this.physicModel.UpdateCurrentSpeedVector(newv);
+            this.CheckMovementControl();
         }
     }
+
 
 }

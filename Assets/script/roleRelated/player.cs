@@ -8,10 +8,14 @@ using AssemblyCSharp;
 public class player : NetworkBehaviour
 {
     public Int32 teamNumber = 0;
-    public bool isFreeMode = true;
+    public bool isFreemode = true;
     [SyncVar]
     public Color mySkin;
 
+    /// <summary>
+    /// Gets or sets a value indicating whether this <see cref="player"/> is computer.
+    /// </summary>
+    /// <value><c>true</c> if is computer; otherwise, <c>false</c>.</value>
     public bool isComputer
     {
         get
@@ -24,6 +28,12 @@ public class player : NetworkBehaviour
             this.ResetController();
         }
     }
+
+    /// <summary>
+    /// The skill slot.
+    /// </summary>
+    public skill[] skillSlot;
+
 
     private controlling controller;
     private physic physicModel;
@@ -59,6 +69,8 @@ public class player : NetworkBehaviour
         this.physicModel.weight = 1f;
         this.SetAppearence();
         this.mySkin = this.gameObject.GetComponent<SpriteRenderer>().color;
+        this.skillSlot = new skill[2];
+        this.name = "role";
     }
 
     void Start()
@@ -71,6 +83,9 @@ public class player : NetworkBehaviour
         Vector3 newLoc = new Vector3(UnityEngine.Random.Range(this.scope.xMin, this.scope.xMax), UnityEngine.Random.Range(this.scope.yMin, this.scope.yMax), 0);
         this.gameObject.transform.position = newLoc;
         this.gameObject.GetComponent<SpriteRenderer>().color = this.mySkin;
+
+        this.skillSlot[0] = this.gameObject.AddComponent<flash>();
+
     }
 	
     // Update is called once per frame
@@ -82,5 +97,14 @@ public class player : NetworkBehaviour
     public void SetAppearence()
     {
         this.GetComponent<SpriteRenderer>().color = UnityEngine.Random.ColorHSV();
+    }
+
+    /// <summary>
+    /// Sets the skill to skill slot. 
+    /// </summary>
+    /// <param name="slot">Slot, 0 for first slot</param>
+    /// <param name="s">S, skill to add</param>
+    public void SetSkill(int slot, skill s)
+    {
     }
 }
