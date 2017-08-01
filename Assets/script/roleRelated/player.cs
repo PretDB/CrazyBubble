@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 using System;
 using AssemblyCSharp;
 
-public class player : NetworkBehaviour
+public class player : NetworkBehaviour, IControllingEvnets
 {
     public Int32 teamNumber = 0;
     public bool isFreemode = true;
@@ -84,8 +84,16 @@ public class player : NetworkBehaviour
         this.gameObject.transform.position = newLoc;
         this.gameObject.GetComponent<SpriteRenderer>().color = this.mySkin;
 
+        // add skill slot;
         this.skillSlot[0] = this.gameObject.AddComponent<flash>();
+        this.skillSlot[0].physicModel = this.physicModel;
+        this.skillSlot[0].master = this.gameObject;
+        this.skillSlot[1] = this.gameObject.AddComponent<hugelize>();
+        this.skillSlot[1].physicModel = this.physicModel;
+        this.skillSlot[1].master = this.gameObject;
 
+        GameObject.Find("button0").GetComponent<skillPad>().myPrecious = this.skillSlot[0];
+        GameObject.Find("button1").GetComponent<skillPad>().myPrecious = this.skillSlot[1];
     }
 	
     // Update is called once per frame
@@ -94,17 +102,18 @@ public class player : NetworkBehaviour
         this.controller.UpdateControllingData();
     }
 
+    public void OnSkillRelease(int slot)
+    {
+        if (slot < this.skillSlot.Length)
+        {
+            this.skillSlot[slot].ReleaseSkill();
+        }
+    }
+
     public void SetAppearence()
     {
         this.GetComponent<SpriteRenderer>().color = UnityEngine.Random.ColorHSV();
     }
 
-    /// <summary>
-    /// Sets the skill to skill slot. 
-    /// </summary>
-    /// <param name="slot">Slot, 0 for first slot</param>
-    /// <param name="s">S, skill to add</param>
-    public void SetSkill(int slot, skill s)
-    {
-    }
+
 }

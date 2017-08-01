@@ -5,7 +5,5 @@ using UnityEngine.EventSystems;
 
 public interface IControllingEvnets: IEventSystemHandler
 {
-    void Message1();
-
-    void Message2();
+    void OnSkillRelease(int slot);
 }

@@ -58,7 +58,9 @@
      <Compile Include="Assets\script\control\joystick\myJoy.cs" />
      <Compile Include="Assets\script\control\joystick\skillPad.cs" />
      <Compile Include="Assets\script\control\playerControlling.cs" />
+     <Compile Include="Assets\script\control\skill\dumySkill.cs" />
      <Compile Include="Assets\script\control\skill\flash.cs" />
+     <Compile Include="Assets\script\control\skill\hugelize.cs" />
      <Compile Include="Assets\script\control\skill\skill.cs" />
      <Compile Include="Assets\script\otherControl\exit.cs" />
      <Compile Include="Assets\script\physics\physic.cs" />

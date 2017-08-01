@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System;
 using System.IO;
+using System.Net.Security;
+using UnityEngine.Timeline;
 
 public class skill : NetworkBehaviour
 {
@@ -18,16 +20,34 @@ public class skill : NetworkBehaviour
         selfGain
     }
 
+    public enum state
+    {
+        avaliable,
+        startingUp,
+        onEffectiving,
+        postEffectiving,
+        coolingDown
+    }
+
     /// <summary>
     /// The main argument. First for mainly affect scope, like distance or range.
     /// Second for affect time. Third for charging, like life charging.
     /// </summary>
     public float[] mainArg;
-    /// <summary>
-    /// The cool down time. In seconds
-    /// </summary>
-    public float coolDownTime = 1f;
-    public bool avaliable = true;
+    public float startUpTime = 0f;
+    public float startUpLeft = 0f;
+    public float effectiveTime = 0f;
+    public float effectiveLeft = 0f;
+    public float postEffectivingTime = 0f;
+    public float postEffectivingLeft = 0f;
+    public float coolDownTime;
+    public float coolDownLeft;
+    public state currentState = state.avaliable;
+    public bool isAvaliable = true;
+    public bool isPreEffectiving = false;
+    public bool isEffectiving = false;
+    public bool isPostEffectiving = false;
+    public bool isCoolingDown = false;
     public bool allowToCoolDown = true;
 
     /// <summary>
@@ -36,34 +56,25 @@ public class skill : NetworkBehaviour
     /// <value>The property.</value>
     public property prop
     {
-        get
-        {
-            return this._prop;
-        }
+        get;
+        protected set;
     }
-
 
     public string skillName
     {
-        get
-        {
-            return this._skillName;
-        }
+        get;
+        protected set;
     }
 
     public Int32 level
     {
-        get
-        {
-            return this._level;
-        }
+        get;
+        protected set;
     }
 
-    protected float coolDownLeft = 0f;
-    protected Int32 _level = 0;
-    protected string _skillName = "unnamed skill";
-    protected physic physicModel;
-    protected property _prop;
+    public physic physicModel;
+    public GameObject master;
+
 
     protected virtual void Awake()
     {
@@ -72,38 +83,98 @@ public class skill : NetworkBehaviour
     protected virtual void Start()
     {
         this.coolDownLeft = 0f;
-        this._prop = property.notused;
+        this.prop = property.notused;
+        this.skillName = "unnamed skill";
     }
 
     protected virtual void Update()
     {
-		
+       
     }
 
+    /// <summary>
+    /// Fixeds the update.
+    /// </summary>
     protected virtual void FixedUpdate()
     {
-        this.CoolingDown();
-    }
-
-    protected virtual void CoolingDown()
-    {
-        if (this.allowToCoolDown)
+        switch (this.currentState)
         {
-            if (!this.avaliable)
-            {
-                this.coolDownLeft -= Time.fixedDeltaTime;
-            }
-            if (this.coolDownLeft < 0f)
-            {
-                this.coolDownLeft = 0f;
-                this.avaliable = true;
-            }
+            case state.startingUp:
+                this.StartingUp();
+                break;
+            case state.onEffectiving:
+                this.Effectiving();
+                break;
+            case state.postEffectiving:
+                this.PostEffectving();
+                break;
+            case state.coolingDown:
+                this.CoolingDown();
+                break;
         }
     }
 
     protected virtual void Upgrade()
     {
-        this._level += 1;
+        this.level += 1;
+    }
+
+    /// <summary>
+    /// Starting up. Contains counting down and state switching.
+    /// </summary>
+    protected virtual void StartingUp()
+    {
+        this.CountDown(ref this.startUpLeft, this.startUpTime, state.onEffectiving, ref this.effectiveLeft, this.effectiveTime);
+
+        // starting up
+    }
+
+    /// <summary>
+    /// Effectiving skill, contains counting down and state switching.
+    /// </summary>
+    protected virtual void Effectiving()
+    {
+        this.CountDown(ref this.effectiveLeft, this.effectiveTime, state.postEffectiving, ref this.postEffectivingLeft, this.postEffectivingTime);
+        // do skill
+    }
+
+    /// <summary>
+    /// Post effectving. contains counting down and state switching.
+    /// </summary>
+    protected virtual void PostEffectving()
+    {
+        this.CountDown(ref this.postEffectivingLeft, this.postEffectivingTime, state.coolingDown, ref this.coolDownLeft, this.coolDownTime);
+
+        // post effect
+    }
+
+    /// <summary>
+    /// Cooling down. contains counting down and state switching.
+    /// </summary>
+    protected virtual void CoolingDown()
+    {
+        if (this.allowToCoolDown)
+        {
+            this.CountDown(ref this.coolDownLeft, this.coolDownTime, state.avaliable, ref this.startUpLeft, this.startUpTime);
+        }
+    }
+
+    /// <summary>
+    /// Counts down.
+    /// </summary>
+    /// <param name="timeLeft">Time left.</param>
+    /// <param name="TimeTotal">Time total.</param>
+    /// <param name="nextState">Next state.</param>
+    /// <param name="nextLeft"> Next left.</param>
+    /// <param name="nextTime"> Next Time.</param>
+    protected virtual void CountDown(ref float timeLeft, float TimeTotal, state nextState, ref float nextLeft, float nextTime)
+    {
+        timeLeft -= Time.fixedDeltaTime;
+        if (timeLeft <= 0f)
+        {
+            this.currentState = nextState;
+            nextLeft = nextTime;
+        }
     }
 
     /// <summary>
@@ -111,9 +182,10 @@ public class skill : NetworkBehaviour
     /// </summary>
     public virtual void ReleaseSkill()
     {
-        if (this.avaliable)
+        if (this.currentState == state.avaliable)
         {
-            // Do somthing
+            this.currentState = state.startingUp;
         }
     }
+
 }

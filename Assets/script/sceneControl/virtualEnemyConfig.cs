@@ -66,7 +66,7 @@ public class virtualEnemyConfig : NetworkBehaviour
                 newEnemy.GetComponent<player>().isComputer = true;
                 newEnemy.GetComponent<player>().teamNumber = 1;
                 newEnemy.GetComponent<player>().isFreemode = true;
-                newEnemy.GetComponent<physic>().weight = UnityEngine.Random.value * 0.7f;
+                newEnemy.GetComponent<physic>().weight = UnityEngine.Random.value * 0.9f;
 
                 newEnemy.tag = "computer";
                 newEnemy.name = newEnemy.GetInstanceID().ToString();

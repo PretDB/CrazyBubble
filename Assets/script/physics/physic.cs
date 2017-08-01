@@ -85,17 +85,19 @@ public class physic : NetworkBehaviour
     }
 
 
-    [Command]
-    void CmdUpdateSize(float weight)
-    {
-        float r = Mathf.Sqrt(weight);
-        gameObject.transform.localScale = new Vector3(r, r, 1);
-    }
 
     void UpdateSpeed()
     {
         // speed = 1 / weight 
         this.speed = 1 / this.weight + 1;
+    }
+
+    [Command]
+    public void CmdUpdateSize(float weight)
+    {
+        this.weight = weight;
+        float r = Mathf.Sqrt(weight);
+        gameObject.transform.localScale = new Vector3(r, r, 1);
     }
 
     public void UpdateCurrentSpeedVector(Vector3 direction)
