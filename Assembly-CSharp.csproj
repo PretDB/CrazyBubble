@@ -62,6 +62,7 @@
      <Compile Include="Assets\script\control\skill\flash.cs" />
      <Compile Include="Assets\script\control\skill\hugelize.cs" />
      <Compile Include="Assets\script\control\skill\skill.cs" />
+     <Compile Include="Assets\script\control\skill\speedUp.cs" />
      <Compile Include="Assets\script\otherControl\exit.cs" />
      <Compile Include="Assets\script\physics\physic.cs" />
      <Compile Include="Assets\script\roleRelated\player.cs" />

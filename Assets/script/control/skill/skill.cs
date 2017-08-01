@@ -40,8 +40,8 @@ public class skill : NetworkBehaviour
     public float effectiveLeft = 0f;
     public float postEffectivingTime = 0f;
     public float postEffectivingLeft = 0f;
-    public float coolDownTime;
-    public float coolDownLeft;
+    public float coolDownTime = 1f;
+    public float coolDownLeft = 1f;
     public state currentState = state.avaliable;
     public bool isAvaliable = true;
     public bool isPreEffectiving = false;

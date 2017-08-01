@@ -6,9 +6,6 @@ using System;
 
 public class hugelize : skill
 {
-    [SyncVar]
-    private float addWeight = 2f;
-    private float newWeight;
 
     protected override void Awake()
     {
@@ -23,8 +20,9 @@ public class hugelize : skill
         this.mainArg[0] = 2f;                       //  weight improving factor
         this.mainArg[1] = 0.1f;                     // percent weight to charge
         this.coolDownTime = 0.5f;
-        this.effectiveTime = 2f;
-        this.effectiveLeft = 2f;
+        this.coolDownLeft = this.coolDownTime;
+        this.effectiveTime = 5f;
+        this.effectiveLeft = this.effectiveTime;
     }
 
     protected override void Upgrade()
@@ -38,20 +36,20 @@ public class hugelize : skill
     protected override void StartingUp()
     {
         base.StartingUp();
-        this.newWeight = this.physicModel.weight + this.addWeight;
+        float newWeight = this.physicModel.weight + this.mainArg[0];
+        this.physicModel.CmdUpdateSize(newWeight);
     }
 
     protected override void Effectiving()
     {
         base.Effectiving();
-        this.physicModel.CmdUpdateSize(this.newWeight);
     }
 
     protected override void PostEffectving()
     {
         base.PostEffectving();
-        this.newWeight = this.physicModel.weight - this.addWeight;
-        this.newWeight = this.newWeight * (1 - this.mainArg[1]);
-        this.physicModel.CmdUpdateSize(this.newWeight);
+        float newWeight = physicModel.weight - this.mainArg[0];
+        newWeight = newWeight * (1 - this.mainArg[1]);
+        this.physicModel.CmdUpdateSize(newWeight);
     }
 }

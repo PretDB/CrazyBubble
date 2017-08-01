@@ -38,7 +38,6 @@ public class physic : NetworkBehaviour
 
     void Update()
     {
-        this.UpdateSpeed();
         this.Move();
     }
 
@@ -85,11 +84,10 @@ public class physic : NetworkBehaviour
     }
 
 
-
-    void UpdateSpeed()
+    [Command]
+    public void CmdUpdateSpeed(float newSpeed)
     {
-        // speed = 1 / weight 
-        this.speed = 1 / this.weight + 1;
+        this.speed = newSpeed;
     }
 
     [Command]
@@ -98,6 +96,7 @@ public class physic : NetworkBehaviour
         this.weight = weight;
         float r = Mathf.Sqrt(weight);
         gameObject.transform.localScale = new Vector3(r, r, 1);
+        this.CmdUpdateSpeed(1 / this.weight + 3);
     }
 
     public void UpdateCurrentSpeedVector(Vector3 direction)

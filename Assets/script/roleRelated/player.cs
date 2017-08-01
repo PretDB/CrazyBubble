@@ -88,7 +88,7 @@ public class player : NetworkBehaviour, IControllingEvnets
         this.skillSlot[0] = this.gameObject.AddComponent<flash>();
         this.skillSlot[0].physicModel = this.physicModel;
         this.skillSlot[0].master = this.gameObject;
-        this.skillSlot[1] = this.gameObject.AddComponent<hugelize>();
+        this.skillSlot[1] = this.gameObject.AddComponent<speedUp>();
         this.skillSlot[1].physicModel = this.physicModel;
         this.skillSlot[1].master = this.gameObject;
 

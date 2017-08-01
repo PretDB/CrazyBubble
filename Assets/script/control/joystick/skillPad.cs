@@ -23,18 +23,29 @@ public class skillPad : MonoBehaviour
 
     void Update()
     {
-        if (GameObject.Find("coolDownMask" + this.slot.ToString()) != null)
+        if (GameObject.Find("coolDownMask" + this.slot.ToString()) != null && GameObject.Find("effectiveMask" + this.slot.ToString()))
         {
-            GameObject go = GameObject.Find("coolDownMask" + this.slot.ToString());
-            if (go.GetComponent<Image>() != null)
+            GameObject cdMask = GameObject.Find("coolDownMask" + this.slot.ToString());
+            GameObject efMask = GameObject.Find("effectiveMask" + this.slot.ToString());
+            if (cdMask.GetComponent<Image>() != null)
             {
                 try
                 {
-                    go.GetComponent<Image>().fillAmount = this.myPrecious.coolDownLeft / this.myPrecious.coolDownTime;
+                    cdMask.GetComponent<Image>().fillAmount = this.myPrecious.coolDownLeft / this.myPrecious.coolDownTime;
                 }
                 catch (Exception)
                 {
-                    Debug.Log(go.name);
+                }
+            }
+            if (efMask.GetComponent<Image>() != null)
+            {
+                try
+                {
+                    efMask.GetComponent<Image>().fillAmount = this.myPrecious.effectiveLeft / this.myPrecious.effectiveTime;
+                }
+                catch (Exception)
+                {
+                    
                 }
             }
         }
