@@ -10,6 +10,7 @@ public class skillPad : MonoBehaviour
 {
     public int slot;
     public skill myPrecious;
+    public GameObject me;
 
     void Start()
     {
@@ -18,7 +19,7 @@ public class skillPad : MonoBehaviour
 
     void OnClick()
     {
-        ExecuteEvents.Execute<IControllingEvnets>(GameObject.Find("role"), null, (x, y) => x.OnSkillRelease(this.slot));
+        ExecuteEvents.Execute<IControllingEvnets>(me, null, (x, y) => x.OnSkillRelease(this.slot));
     }
 
     void Update()

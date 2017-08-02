@@ -34,15 +34,25 @@ public class skill : NetworkBehaviour
     /// Second for affect time. Third for charging, like life charging.
     /// </summary>
     public float[] mainArg;
+    [SyncVar]
     public float startUpTime = 0f;
+    [SyncVar]
     public float startUpLeft = 0f;
+    [SyncVar]
     public float effectiveTime = 0f;
+    [SyncVar]
     public float effectiveLeft = 0f;
+    [SyncVar]
     public float postEffectivingTime = 0f;
+    [SyncVar]
     public float postEffectivingLeft = 0f;
+    [SyncVar]
     public float coolDownTime = 1f;
+    [SyncVar]
     public float coolDownLeft = 1f;
+    [SyncVar]
     public state currentState = state.avaliable;
+    [SyncVar]
     public bool isAvaliable = true;
     public bool isPreEffectiving = false;
     public bool isEffectiving = false;

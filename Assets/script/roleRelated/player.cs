@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System;
 using AssemblyCSharp;
+using System.Reflection;
 
 public class player : NetworkBehaviour, IControllingEvnets
 {
@@ -70,7 +71,7 @@ public class player : NetworkBehaviour, IControllingEvnets
         this.SetAppearence();
         this.mySkin = this.gameObject.GetComponent<SpriteRenderer>().color;
         this.skillSlot = new skill[2];
-        this.name = "role";
+        this.name = this.GetInstanceID().ToString();
     }
 
     void Start()
@@ -92,8 +93,13 @@ public class player : NetworkBehaviour, IControllingEvnets
         this.skillSlot[1].physicModel = this.physicModel;
         this.skillSlot[1].master = this.gameObject;
 
-        GameObject.Find("button0").GetComponent<skillPad>().myPrecious = this.skillSlot[0];
-        GameObject.Find("button1").GetComponent<skillPad>().myPrecious = this.skillSlot[1];
+        if (this.isComputer == false && isLocalPlayer)
+        {
+            GameObject.Find("button0").GetComponent<skillPad>().myPrecious = this.skillSlot[0];
+            GameObject.Find("button0").GetComponent<skillPad>().me = this.gameObject;
+            GameObject.Find("button1").GetComponent<skillPad>().myPrecious = this.skillSlot[1];
+            GameObject.Find("button1").GetComponent<skillPad>().me = this.gameObject;
+        }
     }
 	
     // Update is called once per frame
@@ -104,9 +110,14 @@ public class player : NetworkBehaviour, IControllingEvnets
 
     public void OnSkillRelease(int slot)
     {
-        if (slot < this.skillSlot.Length)
+        if (isLocalPlayer)
         {
-            this.skillSlot[slot].ReleaseSkill();
+            if (slot < this.skillSlot.Length)
+            {
+                Type tp = this.skillSlot[slot].GetType();
+                MethodInfo mi = tp.GetMethod("ReleaseSkill");
+                mi.Invoke(this.skillSlot[slot], null);
+            }
         }
     }
 
