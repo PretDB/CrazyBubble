@@ -22,13 +22,13 @@ public class flash : skill
 
         // time
         this.startUpTime = 0f;
-        this.startUpLeft = 0f;
+        this.startUpLeft = this.startUpTime;
         this.effectiveLeft = 0f;
-        this.effectiveTime = 0f;
+        this.effectiveTime = this.effectiveTime;
         this.postEffectivingLeft = 0f;
-        this.postEffectivingTime = 0f;
+        this.postEffectivingTime = this.postEffectivingTime;
         this.coolDownTime = 0.5f;
-        this.coolDownLeft = 0f;
+        this.coolDownLeft = this.coolDownTime;
 
     }
 
