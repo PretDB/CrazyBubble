@@ -2,20 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
-public class exit : MonoBehaviour
+public class quit : MonoBehaviour
 {
     void Start()
     {
         this.gameObject.GetComponent<Button>().onClick.AddListener(this.OnClick);
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     void OnClick()
     {
-        SceneManager.LoadScene("offline");
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName("offline"));
-        SceneManager.UnloadSceneAsync("1");
+        Application.Quit();
     }
 }

@@ -51,7 +51,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\sceneSwitch.cs" />
      <Compile Include="Assets\script\control\computerControlling.cs" />
      <Compile Include="Assets\script\control\controlling.cs" />
      <Compile Include="Assets\script\control\events\controlEvents.cs" />
@@ -65,10 +64,14 @@
      <Compile Include="Assets\script\control\skill\skill.cs" />
      <Compile Include="Assets\script\control\skill\speedUp.cs" />
      <Compile Include="Assets\script\otherControl\exit.cs" />
+     <Compile Include="Assets\script\otherControl\quit.cs" />
      <Compile Include="Assets\script\physics\physic.cs" />
+     <Compile Include="Assets\script\roleRelated\mySole.cs" />
      <Compile Include="Assets\script\roleRelated\player.cs" />
      <Compile Include="Assets\script\sceneControl\computerConfig.cs" />
      <Compile Include="Assets\script\sceneControl\geographicalLimit.cs" />
+     <Compile Include="Assets\script\sceneControl\sceneSwitch.cs" />
+     <Compile Include="Assets\script\sceneControl\startHost.cs" />
      <Compile Include="Assets\script\sceneControl\virtualEnemyConfig.cs" />
      <Compile Include="Assets\script\view\netCameraFollow.cs" />
      <Compile Include="Assets\script\view\view.cs" />

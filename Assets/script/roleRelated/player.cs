@@ -99,6 +99,8 @@ public class player : NetworkBehaviour, IControllingEvnets
             GameObject.Find("button0").GetComponent<skillPad>().me = this.gameObject;
             GameObject.Find("button1").GetComponent<skillPad>().myPrecious = this.skillSlot[1];
             GameObject.Find("button1").GetComponent<skillPad>().me = this.gameObject;
+
+            this.name = GameObject.Find("mySole").GetComponent<mySole>().myName;
         }
     }
 	
