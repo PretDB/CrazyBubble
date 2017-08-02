@@ -35,19 +35,20 @@ public class virtualEnemyConfig : NetworkBehaviour
 
     void Update()
     {
-
+        if (isServer)
+        {
+            if (allowVirtualEnemy)
+            {
+                if (this.computerList.Count < this.maxVirtualEnemy)
+                {
+                    this.GenerateVirtualEnemy();
+                }
+            }
+        }
     }
 
     public override void OnStartServer()
     {
-        if (this.allowVirtualEnemy)
-        { 
-            for (int a = 0; a < 10; a++)
-            {
-                this.GenerateVirtualEnemy();
-            }
-        }
-
     }
 
 

@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\sceneSwitch.cs" />
      <Compile Include="Assets\script\control\computerControlling.cs" />
      <Compile Include="Assets\script\control\controlling.cs" />
      <Compile Include="Assets\script\control\events\controlEvents.cs" />
