@@ -97,6 +97,7 @@ public class physic : NetworkBehaviour
         float r = Mathf.Sqrt(weight);
         gameObject.transform.localScale = new Vector3(r, r, 1);
         this.CmdUpdateSpeed(1 / this.weight + 3);
+        this.RpcUpdateSize(weight);
     }
 
     public void UpdateCurrentSpeedVector(Vector3 direction)
@@ -114,8 +115,10 @@ public class physic : NetworkBehaviour
     [ClientRpc]
     void RpcUpdateSize(float weight)
     {
-        float f = Mathf.Sqrt(this.weight);
-        this.gameObject.transform.localScale = new Vector3(f, f, 1);
+        this.weight = weight;
+
+        float r = Mathf.Sqrt(this.weight);
+        this.gameObject.transform.localScale = new Vector3(r, r, 1);
     }
 
 }
