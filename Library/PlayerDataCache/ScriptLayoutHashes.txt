@@ -157,7 +157,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.Spa
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.quit
 a8796ecdc9d5c260bbe32f30c4b10708 Assembly-CSharp-firstpass.dll:UnityStandardAssets.CrossPlatformInput.TouchPad
 606f807fd1751ca023b7b57ea5b0ce07 Assembly-CSharp.dll:.player
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.link
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.weightIndicator
 5375bb00b1178078734e07bebbaa5dd3 Assembly-CSharp.dll:.myJoy
 a50c52cbfd1014fddf3b16b8f08e2706 Assembly-CSharp.dll:.flash
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.link

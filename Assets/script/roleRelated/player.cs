@@ -12,6 +12,7 @@ public class player : NetworkBehaviour, IControllingEvnets
 {
     public Int32 teamNumber = 0;
     public bool isFreemode = true;
+    public bool isHost;
     [SyncVar]
     public Color mySkin;
 
@@ -78,6 +79,8 @@ public class player : NetworkBehaviour, IControllingEvnets
 
     void Start()
     {
+        this.isHost = Convert.ToBoolean(PlayerPrefs.GetString("ImHost"));
+        this.isFreemode = Convert.ToBoolean(PlayerPrefs.GetString("free"));
         if (isLocalPlayer)
         {
             GameObject.FindWithTag("MainCamera").GetComponent<view>().target = this.gameObject;

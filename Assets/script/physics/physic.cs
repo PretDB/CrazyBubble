@@ -60,6 +60,8 @@ public class physic : NetworkBehaviour
             }
             if (colli.gameObject.tag == "player")
             {
+                this.UpdateWeightFrom(colli);
+                Destroy(colli);
                 // destroy player or respawn
             }
         }
