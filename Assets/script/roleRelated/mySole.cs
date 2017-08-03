@@ -3,10 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class mySole : NetworkBehaviour
+public class mySole : MonoBehaviour
 {
-    [SyncVar]
+    public enum GameMethod
+    {
+        host,
+        client
+    }
+
     public string myName;
+
+
+    public GameMethod gameMethod = GameMethod.host;
 
     void Start()
     {

@@ -9,7 +9,7 @@ using UnityEngine.Networking;
 /// <summary>
 /// manage the view.
 /// </summary>
-public class view : NetworkBehaviour
+public class view : MonoBehaviour
 {
 
     public float distanceRate = 0.05f;

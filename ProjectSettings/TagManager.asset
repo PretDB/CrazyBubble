@@ -13,6 +13,7 @@ TagManager:
   - computer
   - player
   - computerGenerator
+  - wait
   layers:
   - Default
   - TransparentFX

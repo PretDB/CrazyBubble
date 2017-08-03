@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
 
 public class exit : MonoBehaviour
 {
@@ -14,8 +15,10 @@ public class exit : MonoBehaviour
 
     void OnClick()
     {
-        SceneManager.LoadScene("offline");
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName("offline"));
-        SceneManager.UnloadSceneAsync("1");
+        NetworkManager.singleton.StopHost();
+//        GameObject.Find("GodIsLookingAtYou").GetComponent<NetworkManager>().StopHost();
+//        SceneManager.LoadScene("offline");
+//        SceneManager.SetActiveScene(SceneManager.GetSceneByName("offline"));
+//        SceneManager.UnloadSceneAsync("1");
     }
 }

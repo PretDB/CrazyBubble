@@ -5,6 +5,8 @@ using UnityEngine.Networking;
 using System;
 using AssemblyCSharp;
 using System.Reflection;
+using System.Threading;
+using UnityEngine.UI;
 
 public class player : NetworkBehaviour, IControllingEvnets
 {
@@ -85,22 +87,48 @@ public class player : NetworkBehaviour, IControllingEvnets
         this.gameObject.transform.position = newLoc;
         this.gameObject.GetComponent<SpriteRenderer>().color = this.mySkin;
 
-        // add skill slot;
-        this.skillSlot[0] = this.gameObject.AddComponent<flash>();
-        this.skillSlot[0].physicModel = this.physicModel;
-        this.skillSlot[0].master = this.gameObject;
-        this.skillSlot[1] = this.gameObject.AddComponent<hugelize>();
-        this.skillSlot[1].physicModel = this.physicModel;
-        this.skillSlot[1].master = this.gameObject;
 
         if (this.isComputer == false && isLocalPlayer)
         {
+            // add skill slot;
+            switch (PlayerPrefs.GetString("skillA"))
+            {
+                case "flash":
+                    this.skillSlot[0] = this.gameObject.AddComponent<flash>();
+                    break;
+                case "speed up":
+                    this.skillSlot[0] = this.gameObject.AddComponent<speedUp>();
+                    break;
+                case "hugelize":
+                    this.skillSlot[0] = this.gameObject.AddComponent<hugelize>();
+                    break;
+            }
+            switch (PlayerPrefs.GetString("skillB"))
+            {
+                case "flash":
+                    this.skillSlot[1] = this.gameObject.AddComponent<flash>();
+                    break;
+                case "speed up":
+                    this.skillSlot[1] = this.gameObject.AddComponent<speedUp>();
+                    break;
+                case "hugelize":
+                    this.skillSlot[1] = this.gameObject.AddComponent<hugelize>();
+                    break;
+            }
+
+            this.skillSlot[0].physicModel = this.physicModel;
+            this.skillSlot[0].master = this.gameObject;
+            this.skillSlot[1].physicModel = this.physicModel;
+            this.skillSlot[1].master = this.gameObject;
+
             GameObject.Find("button0").GetComponent<skillPad>().myPrecious = this.skillSlot[0];
             GameObject.Find("button0").GetComponent<skillPad>().me = this.gameObject;
+            GameObject.Find("skillSlot0").GetComponent<Text>().text = PlayerPrefs.GetString("skillA");
             GameObject.Find("button1").GetComponent<skillPad>().myPrecious = this.skillSlot[1];
             GameObject.Find("button1").GetComponent<skillPad>().me = this.gameObject;
+            GameObject.Find("skillSlot1").GetComponent<Text>().text = PlayerPrefs.GetString("skillB");
 
-            this.name = GameObject.Find("mySole").GetComponent<mySole>().myName;
+            this.name = PlayerPrefs.GetString("name");
         }
     }
 	

@@ -3,9 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Net.Sockets;
+using UnityEngine.Networking;
+using System.Reflection.Emit;
 
 public class sceneSwitch : MonoBehaviour
 {
+    void OnEnable()
+    {
+    }
+
     void Start()
     {
         this.gameObject.GetComponent<Button>().onClick.AddListener(this.OnClick);
@@ -13,11 +20,22 @@ public class sceneSwitch : MonoBehaviour
 
     void OnClick()
     {
-//        GameObject.Find("mySole").GetComponent<mySole>().myName = GameObject.Find("nameHere").GetComponent<InputField>().text;
-        SceneManager.LoadScene("1", LoadSceneMode.Additive);
-        Scene scene1 = SceneManager.GetSceneByName("1");
-        SceneManager.MoveGameObjectToScene(GameObject.Find("mySole"), scene1);
-        Debug.LogError("set active scene falt    " + SceneManager.SetActiveScene(scene1).ToString());
-        SceneManager.UnloadSceneAsync("offline");
+        string a;
+        string skillA = GameObject.Find("LabelA").GetComponent<Text>().text;
+        string skillB = GameObject.Find("LabelB").GetComponent<Text>().text;
+        if (GameObject.Find("playerName").GetComponent<Text>().text != "")
+        {
+            a = GameObject.Find("playerName").GetComponent<Text>().text;
+        }
+        else
+        {
+            a = "defaultName";
+        }
+        PlayerPrefs.SetString("name", a);
+        PlayerPrefs.SetString("skillA", skillA);
+        PlayerPrefs.SetString("skillB", skillB);
+        NetworkManager.singleton.StartHost();
+        Debug.Log(skillA);
     }
+
 }
